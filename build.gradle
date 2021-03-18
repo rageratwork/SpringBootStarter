@@ -1,0 +1,52 @@
+import com.bmuschko.gradle.vagrant.tasks.VagrantSsh
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath 'com.bmuschko:gradle-vagrant-plugin:2.0'
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.4.3'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+apply plugin: 'com.bmuschko.vagrant'
+
+group = 'com.fourthwoods'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+bootWar {
+	archiveFileName = 'starter.war'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-jdbc:${spring_boot_version}"
+	implementation "org.springframework.boot:spring-boot-starter-security:${spring_boot_version}"
+	implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${spring_boot_version}"
+	implementation "org.springframework.boot:spring-boot-starter-web:${spring_boot_version}"
+	implementation "org.flywaydb:flyway-core:${flyway_version}"
+	implementation "org.thymeleaf.extras:thymeleaf-extras-springsecurity5:${thymeleaf_extras_version}"
+	implementation "org.webjars:jquery:${jquery_version}"
+	implementation "org.webjars:bootstrap:${bootstrap_version}"
+	implementation "org.webjars:webjars-locator-core"
+	implementation "org.apache.logging.log4j:log4j:${log4j_version}"
+	runtimeOnly "org.postgresql:postgresql:${postgres_version}"
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${spring_boot_version}"
+	testImplementation "org.springframework.security:spring-security-test:${spring_boot_version}"
+}
+
+test {
+	useJUnitPlatform()
+}
+

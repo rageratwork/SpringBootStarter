@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="60 seconds">
+    <appender name="rootAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/lib/tomcat9/logs/starter.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/var/lib/tomcat9/logs/starter.log.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <charset>utf-8</charset>
+            <pattern>%d{"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",UTC} %-5level [%thread] %logger: %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="WARN" />
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <root level="debug">
+        <appender-ref ref="rootAppender" />
+    </root>
+
+</configuration>

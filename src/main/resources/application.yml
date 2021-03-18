@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    initialize: false
+    platform: postgresql
+    url: jdbc:postgresql://localhost:5432/starterdb
+    username: starterdb_user
+    password: password
+  flyway:
+    initOnMigrate: true
+    baselineOnMigrate: true

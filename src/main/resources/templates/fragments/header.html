@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav th:fragment="header(tab)" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" th:href="@{/}">Title</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
+            aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" th:classappend="${tab == 'home'} ? 'active' : ''">
+                <a class="nav-link" th:href="@{/home}">Home <span th:if="${tab == 'home'}" class="sr-only">(current)</span></a>
+            </li>
+            <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item" th:classappend="${tab == 'admin'} ? 'active' : ''">
+                <a class="nav-link" th:href="@{/admin}">Admin <span th:if="${tab == 'admin'}" class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li sec:authorize="isAnonymous()" class="nav_item" >
+                <a class="nav-link" th:href="@{/login}">Login</a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav_item" >
+                <span class="navbar-text">Welcome, <span sec:authentication="name"></span></span>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav_item" >
+                <a class="nav-link" th:href="@{/logout}">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</html>
